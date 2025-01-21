@@ -69,7 +69,7 @@
     "message": "关闭"
   },
   "configPrompt": {
-    "message": "请用 100 个字的中文概括文章的内容。"
+    "message": "请用中文概括文章的内容。"
   },
   "settingsHostTip": {
     "message": "默认"
