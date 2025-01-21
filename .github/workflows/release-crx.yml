@@ -1,0 +1,39 @@
+name: Build and Release CRX
+
+on:
+  release:
+    types: [created]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+
+      - name: Install dependencies
+        run: npm install
+          
+      - name: Generate extension key
+        run: |
+          openssl genpkey -algorithm RSA -out private.pem -pkeyopt rsa_keygen_bits:2048
+          openssl rsa -in private.pem -pubout -out public.pem
+          
+      - name: Build CRX
+        run: |
+          npm install -g crx
+          crx pack . -o extension.crx -p private.pem
+          
+      - name: Upload CRX to Release
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ github.event.release.upload_url }}
+          asset_path: ./extension.crx
+          asset_name: extension.crx
+          asset_content_type: application/x-chrome-extension
