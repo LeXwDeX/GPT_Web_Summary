@@ -157,7 +157,7 @@ document
         token,
         host,
         model,
-        max_tokens: document.querySelector('#max_tokens').value || undefined,
+        max_tokens: parseInt(document.querySelector('#max_tokens').value) || undefined,
         provider,
       };
     }
