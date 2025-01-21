@@ -2,6 +2,11 @@ name: Build and Release CRX
 
 on:
   workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version number (e.g. v1.0.0)'
+        required: true
+        default: 'v1.0.0'
   release:
     types: [created]
 
@@ -11,25 +16,36 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
+      - name: Create CRX package
+        run: |
+          zip -r extension.zip * -x "*.git*" -x "*.github*"
+          mv extension.zip extension.crx
+      
+      - name: Create Release
+        if: github.event_name == 'workflow_dispatch'
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          node-version: '16'
-
-      - name: Install dependencies
-        run: npm install
+          tag_name: ${{ github.event.inputs.version }}
+          release_name: Release ${{ github.event.inputs.version }}
+          draft: false
+          prerelease: false
           
-      - name: Generate extension key
-        run: |
-          openssl genpkey -algorithm RSA -out private.pem -pkeyopt rsa_keygen_bits:2048
-          openssl rsa -in private.pem -pubout -out public.pem
+      - name: Upload CRX to Release (Manual Trigger)
+        if: github.event_name == 'workflow_dispatch'
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./extension.crx
+          asset_name: extension.crx
+          asset_content_type: application/x-chrome-extension
           
-      - name: Build CRX
-        run: |
-          npm install -g crx
-          crx pack . -o extension.crx -p private.pem
-          
-      - name: Upload CRX to Release
+      - name: Upload CRX to Release (Release Trigger)
+        if: github.event_name == 'release'
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
