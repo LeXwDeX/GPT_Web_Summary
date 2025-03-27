@@ -24,7 +24,7 @@
     "message": "示例："
   },
   "settingsPromptExample1": {
-    "message": "请用 100 个字的中文总结文章的内容。"
+    "message": "请用 100 个字的中文总结网页的内容。"
   },
   "settingsPromptExample2": {
     "message": "请用简短的要点来总结内容，并以列表形式呈现。"
