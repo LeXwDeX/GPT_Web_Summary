@@ -2,7 +2,7 @@ const DEFAULT_SETTINGS = {
   prompt: chrome.i18n.getMessage('configPrompt'),
   token: '',
   host: 'https://api.openai.com',
-  model: 'gpt-3.5-turbo',
+  model: 'gpt-4o-mini',
   provider: 'openai',
   azureKey: '',
   azureURL: '',

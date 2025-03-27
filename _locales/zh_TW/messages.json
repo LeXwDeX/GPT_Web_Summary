@@ -24,7 +24,7 @@
     "message": "範例："
   },
   "settingsPromptExample1": {
-    "message": "請在不到 100 個字的範圍內精確摘要以下文章。"
+    "message": "請在不到 100 個字的範圍內精確摘要以下网页。"
   },
   "settingsPromptExample2": {
     "message": "請使用簡短的標點符號摘要內容並以列表形式呈現。"
@@ -69,6 +69,6 @@
     "message": "關閉"
   },
   "configPrompt": {
-    "message": "請在不到 100 個字的範圍內精確摘要以下文章。"
+    "message": "請在不到 100 個字的範圍內精確摘要以下网页。"
   }
 }

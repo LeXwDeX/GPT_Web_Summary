@@ -30,7 +30,7 @@
     "message": "请用简短的要点来总结内容，并以列表形式呈现。"
   },
   "settingsPromptExample3": {
-    "message": "请为文章生成一个合适的标题。"
+    "message": "请为网页生成一个合适的标题。"
   },
   "settingsTokenLabel": {
     "message": "OpenAI API KEY"
@@ -69,7 +69,7 @@
     "message": "关闭"
   },
   "configPrompt": {
-    "message": "请用中文概括文章的内容。"
+    "message": "请用中文概括网页的内容。"
   },
   "settingsHostTip": {
     "message": "默认"
